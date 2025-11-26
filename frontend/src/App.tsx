@@ -1,11 +1,12 @@
-import { Button } from './components/ui/button'
 import Header from './components/header/header'
+import DiaryPage from './pages/diary/diaryPage'
 
 function App() {
 
   return (
     <>
       <Header />
+      <DiaryPage />
     </>
   )
 }

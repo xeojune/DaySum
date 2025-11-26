@@ -1,23 +1,45 @@
 import React from 'react';
+import { Calendar, Settings } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Avatar, AvatarFallback } from '../ui/avatar';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onCalendarClick?: () => void;
+  onSettingsClick?: () => void;
+  onProfileClick?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onCalendarClick, onSettingsClick, onProfileClick }) => {
     return (
-        <header className="bg-white text-black p-4">
-            <div className="container mx-auto flex justify-between items-center">
-                <div className="text-lg font-bold">
-                    <a href="/">DAYSUM</a>
-                </div>
-                <nav>
-                    <ul className="flex space-x-4">
-                        <li>
-                            <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-                                <span className="text-white">P</span> {/* Placeholder for Profile */}
-                            </div>
-                        </li>
-                        <li><a href="/about" className="hover:text-gray-600">About</a></li>
-                        <li><a href="/contact" className="hover:text-gray-600">Contact</a></li>
-                    </ul>
-                </nav>
+        <header className="flex items-center justify-between px-4 py-3 bg-white">
+            <div className="flex items-center gap-3">
+                <h1 className="text-xl font-semibold text-gray-900">DAYSUM</h1>
+            </div>
+            
+            <div className="flex items-center gap-2">
+                <Avatar className="w-8 h-8 cursor-pointer" onClick={onProfileClick}>
+                    <AvatarFallback className="bg-gray-100 text-gray-600 text-sm">
+                        P
+                    </AvatarFallback>
+                </Avatar>
+                
+                <Button 
+                    variant="ghost" 
+                    size="icon-sm" 
+                    className="text-gray-600 hover:text-gray-900"
+                    onClick={onCalendarClick}
+                >
+                    <Calendar className="w-5 h-5" />
+                </Button>
+                
+                <Button 
+                    variant="ghost" 
+                    size="icon-sm" 
+                    className="text-gray-600 hover:text-gray-900"
+                    onClick={onSettingsClick}
+                >
+                    <Settings className="w-5 h-5" />
+                </Button>
             </div>
         </header>
     );

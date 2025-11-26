@@ -26,12 +26,9 @@ export default function Calendar21({ className }: Calendar21Props = {}) {
       }}
       components={{
         DayButton: ({ children, modifiers, day, ...props }) => {
-          const isWeekend = day.date.getDay() === 0 || day.date.getDay() === 6
-
           return (
             <CalendarDayButton day={day} modifiers={modifiers} {...props}>
               {children}
-              {!modifiers.outside && <span>{isWeekend ? "$220" : "$100"}</span>}
             </CalendarDayButton>
           )
         },

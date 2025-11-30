@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 import { Save, X } from 'lucide-react';
 
 interface DiaryWritingCardProps {
-  onSave: (content: string) => void;
+  onSave: (title: string, content: string) => void;
   onCancel: () => void;
 }
 
@@ -12,11 +12,13 @@ export const DiaryWritingCard: React.FC<DiaryWritingCardProps> = ({
   onSave,
   onCancel 
 }) => {
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   const handleSave = () => {
-    if (content.trim()) {
-      onSave(content);
+    if (title.trim() && content.trim()) {
+      onSave(title, content);
+      setTitle('');
       setContent('');
     }
   };
@@ -28,6 +30,16 @@ export const DiaryWritingCard: React.FC<DiaryWritingCardProps> = ({
         <p className="text-sm text-gray-500 mt-1">자유롭게 작성해주세요</p>
       </div>
       
+      {/* Title Input */}
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="제목을 입력하세요..."
+        className="w-full p-3 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+      />
+      
+      {/* Content Textarea */}
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -35,11 +47,12 @@ export const DiaryWritingCard: React.FC<DiaryWritingCardProps> = ({
         className="w-full min-h-[300px] p-3 border border-gray-300 rounded-md resize-y focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
       />
       
+      {/* Action Buttons */}
       <div className="flex gap-2 mt-4">
         <Button 
           className="flex-1 bg-black text-white hover:bg-gray-800"
           onClick={handleSave}
-          disabled={!content.trim()}
+          disabled={!title.trim() || !content.trim()}
         >
           <Save className="w-4 h-4 mr-2" />
           저장하기

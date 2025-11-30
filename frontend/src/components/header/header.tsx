@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onCalendarClick, onSettingsClick, onProfileClick }) => {
     return (
-        <header className="flex items-center justify-between px-4 py-3 bg-white">
+        <header className="fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200 z-50">
             <div className="flex items-center gap-3">
                 <h1 className="text-xl font-semibold text-gray-900">DAYSUM</h1>
             </div>

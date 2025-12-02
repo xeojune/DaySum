@@ -8,9 +8,10 @@ import { Button } from '../../components/ui/button';
 import { X } from 'lucide-react';
 import Calendar21 from '../../components/calendar-21';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'http://localhost:3000/api'; //TODO: Replace with deployed backend link
 const USER_ID = 'user123'; // TODO: Replace with actual user ID from auth
 
+//Diary type definition
 interface DiaryEntry {
   _id?: string;
   userId: string;
@@ -153,22 +154,21 @@ export const DiaryPage: React.FC = () => {
             <DiaryPromptCard
               userName="Juneyoung"
               promptText="오늘은 업무에서 무엇을 하셨나요? 뿌듯한 성취감을 느낄 수 있었나요? 성과나 업무과정을 알려주세요!"
-              onWriteClick={() => setShowWritingCard(true)}
             />
             
-            {showWritingCard && (
-              <div className="mt-4">
-                <DiaryWritingCard
-                  onSave={handleSaveDiary}
-                  onCancel={handleCancelWriting}
-                />
-                {error && (
-                  <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm">
-                    {error}
-                  </div>
-                )}
-              </div>
-            )}
+            
+            <div className="mt-4">
+              <DiaryWritingCard
+                onSave={handleSaveDiary}
+                onCancel={handleCancelWriting}
+              />
+              {error && (
+                <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm">
+                  {error}
+                </div>
+              )}
+            </div>
+            
           </div>
         </ResizablePanel>
 
@@ -177,10 +177,23 @@ export const DiaryPage: React.FC = () => {
 
         {/* Right Panel - Content Area */}
         <ResizablePanel defaultSize={50} minSize={30}>
-          <div className="w-full flex items-center justify-center bg-white p-6">
-            <div className="w-full max-w-4xl">
-              <Calendar21 onDateClick={handleDateClick} datesWithEntries={allDiaryDates} />
+          <div className="h-full flex flex-col bg-white p-6 gap-6 overflow-auto">
+            {/* Calendar Section */}
+            <div className="flex-shrink-0 flex justify-center">
+              <div className="w-full max-w-md">
+                <Calendar21 onDateClick={handleDateClick} datesWithEntries={allDiaryDates} />
+              </div>
             </div>
+            
+            {/* Resume Preview Card */}
+            <Card className="p-6 border border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">레주메 미리보기</h3>
+                <Button variant="outline" size="sm">
+                  상세보기
+                </Button>
+              </div>
+            </Card>
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
